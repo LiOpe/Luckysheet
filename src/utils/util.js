@@ -154,6 +154,18 @@ function rgbTohex(color) {
     return hex;
 };
 
+function addAlphaToRgb(rgbColor, alpha) {
+    let rgba;
+    if (rgbColor.indexOf("rgba(") > -1) {
+        return rgbColor;
+    }
+    if (rgbColor.indexOf("rgb(") < 0) {
+        return rgbColor;
+    }
+    rgba = rgbColor.replace(")", "," + alpha + ")");
+    return rgba;
+}
+
 //列下标  字母转数字
 function ABCatNum(a) {
     // abc = abc.toUpperCase();
@@ -890,6 +902,7 @@ export {
     getNowDateTime,
     hexToRgb,
     rgbTohex,
+    addAlphaToRgb,
     ABCatNum,
     chatatABC,
     ceateABC,

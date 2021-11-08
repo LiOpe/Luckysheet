@@ -8906,6 +8906,7 @@ export default {
 
         cellFormat:"Cell format config",
         print:"Print",
+        customBackgroud:"Add Backgroud",
     },
     alternatingColors:{
         applyRange: 'Apply to range',

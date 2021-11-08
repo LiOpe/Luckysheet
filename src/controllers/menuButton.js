@@ -34,7 +34,7 @@ import { getSheetIndex, getRangetxt, getluckysheetfile } from '../methods/get';
 import { setluckysheetfile } from '../methods/set';
 import {isInlineStringCell,isInlineStringCT,updateInlineStringFormat,convertCssToStyleList,inlineStyleAffectAttribute,updateInlineStringFormatOutside} from './inlineString';
 import { replaceHtml, getObjType, rgbTohex, mouseclickposition, luckysheetfontformat,luckysheetContainerFocus } from '../utils/util';
-import {openProtectionModal,checkProtectionFormatCells,checkProtectionNotEnable} from './protection';
+import {openProtectionModal,checkProtectionFormatCells,checkProtectionNotEnable, checkProtectionAuthorityNormal} from './protection';
 import Store from '../store';
 import locale from '../locale/locale';
 import {checkTheStatusOfTheSelectedCells} from '../global/api';
@@ -2846,6 +2846,46 @@ const menuButton = {
             mouseclickposition($menuButton, menuleft, $(this).offset().top + 25, "lefttop");
         });
         
+        //菜单栏 插入图片按钮
+        $("#luckysheet-custom-btn-background").click(function () {
+            if(!checkProtectionAuthorityNormal(Store.currentSheetIndex, "editObjects")){
+                return;
+            }
+            $("#luckysheet-custom-background").click();    
+        });
+        $("#luckysheet-custom-background").click(function (e) {
+            e.stopPropagation();
+        });
+        $("#luckysheet-custom-background").on("change", function(e){
+            if(!checkProtectionAuthorityNormal(Store.currentSheetIndex, "editObjects",false)){
+                return;
+            }
+            let file = e.currentTarget.files[0];
+            let render = new FileReader();
+            render.readAsDataURL(file);
+    
+            render.onload = function(event){
+                let src = event.target.result;
+                var img = new Image();
+                img.src = src
+                //img.src = src
+                img.onload = imgfn;
+                function imgfn() {
+                    var file = Store.luckysheetfile[Store.currentSheetIndex];
+                    file.backgroudImg = {
+                        src : img,
+                        x : Store.rowHeaderWidth,
+                        y : Store.columnHeaderHeight,
+                        width : img.width, 
+                        height : img.height
+                    }
+                    luckysheetrefreshgrid();
+                }
+            
+                $("#luckysheet-imgUpload").val("");
+            }
+        });
+    
         $("body").on("mouseover mouseleave",".luckysheet-menuButton .luckysheet-cols-submenu", function(e){
             let $t = $(this), attrid = $t.attr("itemvalue"), 
                 $attr = $("#luckysheet-icon-" + attrid + "-menuButton");

@@ -13,7 +13,7 @@ import { getMeasureText,getCellTextInfo } from './getRowlen';
 import { getRealCellValue } from './getdata';
 import { getBorderInfoComputeRange } from './border';
 import { getSheetIndex } from '../methods/get';
-import { getObjType, chatatABC, luckysheetfontformat } from '../utils/util';
+import { getObjType, chatatABC, luckysheetfontformat, hexToRgb, addAlphaToRgb } from '../utils/util';
 import { isInlineStringCell } from '../controllers/inlineString';
 import method from './method';
 import Store from '../store';
@@ -564,6 +564,23 @@ function luckysheetDrawMain(scrollWidth, scrollHeight, drawWidth, drawHeight, of
     luckysheetTableContent.font = luckysheetdefaultFont();
     // luckysheetTableContent.textBaseline = "top";
     luckysheetTableContent.fillStyle = luckysheetdefaultstyle.fillStyle;
+
+    //渲染背景图片
+    let backgroudImg = Store.luckysheetfile[Store.currentSheetIndex].backgroudImg;
+    if (backgroudImg) {
+        luckysheetTableContent.drawImage(backgroudImg.src, Store.rowHeaderWidth, Store.columnHeaderHeight, backgroudImg.src.width, backgroudImg.src.height);
+        luckysheetTableContent.beginPath();
+        luckysheetTableContent.moveTo(Store.rowHeaderWidth + backgroudImg.src.width, Store.columnHeaderHeight);
+        luckysheetTableContent.lineTo(Store.rowHeaderWidth + backgroudImg.src.width, Store.columnHeaderHeight + backgroudImg.src.height);
+        luckysheetTableContent.lineTo(Store.rowHeaderWidth, Store.columnHeaderHeight + backgroudImg.src.height);
+        const oldStyle = luckysheetTableContent.strokeStyle;
+        const oldWidth = luckysheetTableContent.lineWidth;
+        luckysheetTableContent.strokeStyle = "black";
+        luckysheetTableContent.lineWidth = 2;
+        luckysheetTableContent.stroke();
+        luckysheetTableContent.strokeStyle = oldStyle;
+        luckysheetTableContent.lineWidth = oldWidth;
+    }
 
     //表格渲染区域 非空单元格行列 起止坐标
     let cellupdate = [];
@@ -1155,6 +1172,10 @@ let nullCellRender = function(r, c, start_r, start_c, end_r, end_c,luckysheetTab
         luckysheetTableContent.fillStyle = fillStyle;
     }
     
+    let backgroudImg = Store.luckysheetfile[Store.currentSheetIndex].backgroudImg;
+    if(backgroudImg) {
+        luckysheetTableContent.fillStyle = addAlphaToRgb(hexToRgb(luckysheetTableContent.fillStyle), 0.1);
+    }
 
     let cellsize = [
          (start_c + offsetLeft + borderfix[0]), 
@@ -1306,6 +1327,11 @@ let cellRender = function(r, c, start_r, start_c, end_r, end_c, value, luckyshee
         luckysheetTableContent.fillStyle = fillStyle;
     }
 
+    let backgroudImg = Store.luckysheetfile[Store.currentSheetIndex].backgroudImg;
+    if(backgroudImg) {
+        luckysheetTableContent.fillStyle = addAlphaToRgb(hexToRgb(luckysheetTableContent.fillStyle), 0.1);
+    }
+    
     let borderfix = menuButton.borderfix(Store.flowdata, r, c);
     // console.log(value, fillStyle,borderfix);
     let cellsize = [
