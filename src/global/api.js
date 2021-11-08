@@ -41,6 +41,11 @@ import imageCtrl from '../controllers/imageCtrl';
 import dayjs from "dayjs";
 import {getRangetxt } from '../methods/get';
 import {luckysheetupdateCell} from '../controllers/updateCell';
+import { 
+    rowLocation, 
+    colLocation, 
+    mouseposition 
+} from './location';
 const IDCardReg = /^\d{6}(18|19|20)?\d{2}(0[1-9]|1[12])(0[1-9]|[12]\d|3[01])\d{3}(\d|X)$/i;
 
 /**
@@ -6831,4 +6836,37 @@ export function checkTheStatusOfTheSelectedCells(type,status){
     })
 
     return flag;
+}
+
+/**
+ * 根据提供的坐标返回该坐标在单元格中的位置
+ * 坐标必须为绝对坐标，即mouseEvent的pageX和pageY
+ * @param {Number} pageX 横坐标
+ * @param {Number} pageY 纵坐标
+ */
+ export function getCellIndexByPosition(pageX, pageY) {
+    let mouse = mouseposition(pageX, pageY);
+    let x = mouse[0] + $("#luckysheet-cell-main").scrollLeft();
+    let y = mouse[1] + $("#luckysheet-cell-main").scrollTop();
+
+    let row_location = rowLocation(y),
+        row = row_location[1],
+        row_pre = row_location[0],
+        row_index = row_location[2];
+    let col_location = colLocation(x),
+        col = col_location[1],
+        col_pre = col_location[0],
+        col_index = col_location[2];
+
+    let margeset = menuButton.mergeborer(Store.flowdata, row_index, col_index);
+    if (!!margeset) {
+        row = margeset.row[1];
+        row_pre = margeset.row[0];
+        row_index = margeset.row[2];
+
+        col = margeset.column[1];
+        col_pre = margeset.column[0];
+        col_index = margeset.column[2];
+    }
+    return [row_index, col_index];
 }
