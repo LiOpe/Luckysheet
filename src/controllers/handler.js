@@ -1463,33 +1463,33 @@ export default function luckysheetHandler() {
     });
 
     //监听拖拽 
-    document.getElementById('luckysheet-cell-main').addEventListener('drop', function(e){
-        e.preventDefault();
-        e.stopPropagation();
+    // document.getElementById('luckysheet-cell-main').addEventListener('drop', function(e){
+    //     e.preventDefault();
+    //     e.stopPropagation();
 
 
 
-        let files = e.dataTransfer.files;
+    //     let files = e.dataTransfer.files;
 
         //拖拽插入图片
-        if(files.length == 1 && files[0].type.indexOf('image') > -1){        
-            if(!checkProtectionAuthorityNormal(Store.currentSheetIndex, "editObjects")){
-                return;
-            }
-            let render = new FileReader();
-            render.readAsDataURL(files[0]);
+    //     if(files.length == 1 && files[0].type.indexOf('image') > -1){        
+    //         if(!checkProtectionAuthorityNormal(Store.currentSheetIndex, "editObjects")){
+    //             return;
+    //         }
+    //         let render = new FileReader();
+    //         render.readAsDataURL(files[0]);
 
-            render.onload = function(event){
-                let src = event.target.result;
-                imageCtrl.inserImg(src);
-            }
-        }
-        handleCellDragStopEvent(e);
-    }, false);
-    document.getElementById('luckysheet-cell-main').addEventListener('dragover', function(e){
-        e.preventDefault();
-        e.stopPropagation();
-    }, false);
+    //         render.onload = function(event){
+    //             let src = event.target.result;
+    //             imageCtrl.inserImg(src);
+    //         }
+    //     }
+    //     handleCellDragStopEvent(e);
+    // }, false);
+    // document.getElementById('luckysheet-cell-main').addEventListener('dragover', function(e){
+    //     e.preventDefault();
+    //     e.stopPropagation();
+    // }, false);
 
     /**
      * 处理单元格上鼠标拖拽停止事件
