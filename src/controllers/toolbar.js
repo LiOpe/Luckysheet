@@ -84,7 +84,7 @@ export const toolbarIdMap = {
     verticalAlignMode: ['#luckysheet-icon-valign', '#luckysheet-icon-valign-menu'], //'Vertical alignment'
     textWrapMode: ['#luckysheet-icon-textwrap', '#luckysheet-icon-textwrap-menu'], //'Wrap mode'
     textRotateMode: ['#luckysheet-icon-rotation', '#luckysheet-icon-rotation-menu'], //'Text Rotation Mode'
-    addBackground: '#luckysheet-custom-btn-background', //'Add Background'
+    addBackground: '#luckysheet-custom-btn-backgroundImg', //'Add Background'
     image: '#luckysheet-insertImg-btn-title', //'Insert link'
     link: '#luckysheet-insertLink-btn-title', //'Insert picture'
     chart: '#luckysheet-chart-btn-title', //'chart' (the icon is hidden, but if the chart plugin is configured, you can still create a new chart by right click)
@@ -833,7 +833,7 @@ export function createToolbarHtml() {
             </div>
         </div>`, // 'print'
         addBackground: `<div class="luckysheet-toolbar-button-split-left luckysheet-toolbar-button luckysheet-inline-block"
-        data-tips="${toolbar.customBackgroud}" id="luckysheet-custom-btn-background" role="button" style="user-select: none;">
+        data-tips="${toolbar.customBackgroud}" id="luckysheet-custom-btn-backgroundImg" role="button" style="user-select: none;">
             <div class="luckysheet-toolbar-button-outer-box luckysheet-inline-block"
             style="user-select: none;">
                 <div class="luckysheet-toolbar-menu-button-inner-box luckysheet-inline-block"
@@ -843,7 +843,7 @@ export function createToolbarHtml() {
                         <div class="luckysheet-icon luckysheet-inline-block " style="user-select: none;">
                             <div aria-hidden="true" class="luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-rotation-none iconfont luckysheet-iconfont-tupian"
                             style="user-select: none;">
-                                <input id="luckysheet-custom-background" type="file" accept="image/*" style="display:none;"></input>
+                                <input id="luckysheet-custom-backgroundImg" type="file" accept="image/*" style="display:none;"></input>
                             </div>
                         </div>
                     </div>

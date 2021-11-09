@@ -38,6 +38,7 @@ import {openProtectionModal,checkProtectionFormatCells,checkProtectionNotEnable,
 import Store from '../store';
 import locale from '../locale/locale';
 import {checkTheStatusOfTheSelectedCells} from '../global/api';
+import method from '../global/method';
 
 const menuButton = {
     "menu": '<div class="luckysheet-cols-menu luckysheet-rightgclick-menu luckysheet-menuButton ${subclass} luckysheet-mousedown-cancel" id="luckysheet-icon-${id}-menuButton">${item}</div>',
@@ -2847,25 +2848,30 @@ const menuButton = {
         });
         
         //菜单栏 插入图片按钮
-        $("#luckysheet-custom-btn-background").click(function () {
+        $("#luckysheet-custom-btn-backgroundImg").click(function () {
             if(!checkProtectionAuthorityNormal(Store.currentSheetIndex, "editObjects")){
                 return;
             }
-            $("#luckysheet-custom-background").click();    
+            $("#luckysheet-custom-backgroundImg").click();    
         });
-        $("#luckysheet-custom-background").click(function (e) {
+        $("#luckysheet-custom-backgroundImg").click(function (e) {
             e.stopPropagation();
         });
-        $("#luckysheet-custom-background").on("change", function(e){
+        $("#luckysheet-custom-backgroundImg").on("change", function(e){
             if(!checkProtectionAuthorityNormal(Store.currentSheetIndex, "editObjects",false)){
                 return;
             }
             let file = e.currentTarget.files[0];
+            if(!method.createHookFunction("customBackgroudImgBefore", file)) {
+                alert('文件上传失败!')
+                return;
+            }
             let render = new FileReader();
             render.readAsDataURL(file);
     
             render.onload = function(event){
                 let src = event.target.result;
+
                 var img = new Image();
                 img.src = src
                 //img.src = src
@@ -2882,7 +2888,10 @@ const menuButton = {
                     luckysheetrefreshgrid();
                 }
             
-                $("#luckysheet-imgUpload").val("");
+                method.createHookFunction("customBackgroudImgAfter", file)
+        
+                $("#luckysheet-custom-backgroundImg").val("");
+                
             }
         });
     
