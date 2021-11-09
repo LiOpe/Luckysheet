@@ -2862,7 +2862,8 @@ const menuButton = {
                 return;
             }
             let sourceFile = e.currentTarget.files[0];
-            if(!method.createHookFunction("customBackgroudImgBefore", sourceFile)) {
+            let sheetFile = Store.luckysheetfile[Store.currentSheetIndex];
+            if(!method.createHookFunction("customBackgroudImgBefore", sourceFile, sheetFile)) {
                 return;
             }
             let render = new FileReader();
@@ -2876,8 +2877,7 @@ const menuButton = {
                 //img.src = src
                 img.onload = imgfn;
                 function imgfn() {
-                    var file = Store.luckysheetfile[Store.currentSheetIndex];
-                    file.backgroudImg = {
+                    sheetFile.backgroudImg = {
                         src : img,
                         x : Store.rowHeaderWidth,
                         y : Store.columnHeaderHeight,
@@ -2886,7 +2886,7 @@ const menuButton = {
                     }
                     luckysheetrefreshgrid();
                 }
-                method.createHookFunction("customBackgroudImgAfter", sourceFile)
+                method.createHookFunction("customBackgroudImgAfter", sourceFile, sheetFile)
         
                 $("#luckysheet-custom-backgroundImg").val("");
                 
