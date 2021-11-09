@@ -2863,7 +2863,6 @@ const menuButton = {
             }
             let file = e.currentTarget.files[0];
             if(!method.createHookFunction("customBackgroudImgBefore", file)) {
-                alert('文件上传失败!')
                 return;
             }
             let render = new FileReader();
