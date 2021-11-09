@@ -2861,12 +2861,12 @@ const menuButton = {
             if(!checkProtectionAuthorityNormal(Store.currentSheetIndex, "editObjects",false)){
                 return;
             }
-            let file = e.currentTarget.files[0];
-            if(!method.createHookFunction("customBackgroudImgBefore", file)) {
+            let sourceFile = e.currentTarget.files[0];
+            if(!method.createHookFunction("customBackgroudImgBefore", sourceFile)) {
                 return;
             }
             let render = new FileReader();
-            render.readAsDataURL(file);
+            render.readAsDataURL(sourceFile);
     
             render.onload = function(event){
                 let src = event.target.result;
@@ -2886,8 +2886,7 @@ const menuButton = {
                     }
                     luckysheetrefreshgrid();
                 }
-            
-                method.createHookFunction("customBackgroudImgAfter", file)
+                method.createHookFunction("customBackgroudImgAfter", sourceFile)
         
                 $("#luckysheet-custom-backgroundImg").val("");
                 
