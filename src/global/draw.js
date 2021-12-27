@@ -570,7 +570,7 @@ function luckysheetDrawMain(scrollWidth, scrollHeight, drawWidth, drawHeight, of
     if (printArea) {
         luckysheetTableContent.drawImage(printArea.img, Store.rowHeaderWidth, Store.columnHeaderHeight, printArea.width, printArea.height);
     }
-    console.log('sdfasf')
+
     //渲染背景图片
     let backgroudImg = Store.luckysheetfile[Store.currentSheetIndex].backgroudImg;
     if (backgroudImg) {
@@ -1184,8 +1184,6 @@ let nullCellRender = function(r, c, start_r, start_c, end_r, end_c,luckysheetTab
         luckysheetTableContent.fillStyle = addAlphaToRgb(hexToRgb(luckysheetTableContent.fillStyle), 0.1);
     }
 
-    console.log('sfsfasfsa1');
-
     let cellsize = [
          (start_c + offsetLeft + borderfix[0]), 
          (start_r + offsetTop  + borderfix[1]), 
@@ -1341,8 +1339,6 @@ let cellRender = function(r, c, start_r, start_c, end_r, end_c, value, luckyshee
     if(backgroudImg || printArea) {
         luckysheetTableContent.fillStyle = addAlphaToRgb(hexToRgb(luckysheetTableContent.fillStyle), 0.1);
     }
-
-    console.log('sfsfasfsa');
     
     let borderfix = menuButton.borderfix(Store.flowdata, r, c);
     // console.log(value, fillStyle,borderfix);
