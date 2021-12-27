@@ -45,7 +45,7 @@ import {
     mouseposition 
 } from '../global/location';
 import { rowlenByRange } from '../global/getRowlen';
-import { isRealNull, hasPartMC, isEditMode } from '../global/validate';
+import { isRealNull, hasPartMC, isEditMode, checkIsAllowEdit } from '../global/validate';
 import { countfunc } from '../global/count';
 import browser from '../global/browser';
 import formula from '../global/formula';
@@ -3174,17 +3174,20 @@ export default function luckysheetHandler() {
                         "left": left,
                         "top": top
                     });
+
+                    let imageUrlHandle = Store.toJsonOptions && Store.toJsonOptions['imageUrlHandle'];
+                    let imgSrc = typeof imageUrlHandle === 'function' ? imageUrlHandle(imgItem.src) : imgItem.src;
         
                     $("#luckysheet-modal-dialog-cropping .cropping-mask").css({
                         "width": imgItem.default.width,
                         "height": imgItem.default.height,
-                        "background-image": "url(" + imgItem.src + ")",
+                        "background-image": "url(" + imgSrc + ")",
                         "left": -offsetLeft,
                         "top": -offsetTop
                     })
         
                     $("#luckysheet-modal-dialog-cropping .cropping-content").css({
-                        "background-image": "url(" + imgItem.src + ")",
+                        "background-image": "url(" + imgSrc + ")",
                         "background-size": imgItem.default.width + "px " + imgItem.default.height + "px",
                         "background-position": -offsetLeft + "px " + -offsetTop + "px"
                     })
@@ -4866,6 +4869,11 @@ export default function luckysheetHandler() {
 
     //菜单栏 插入图片按钮
     $("#luckysheet-insertImg-btn-title").click(function () {
+        // *如果禁止前台编辑，则中止下一步操作
+        if (!checkIsAllowEdit()) {
+            tooltip.info("", locale().pivotTable.errorNotAllowEdit);
+            return
+        }
         if(!checkProtectionAuthorityNormal(Store.currentSheetIndex, "editObjects")){
             return;
         }
@@ -4886,18 +4894,16 @@ export default function luckysheetHandler() {
             return;
         }
         let file = e.currentTarget.files[0];
-        let render = new FileReader();
-        render.readAsDataURL(file);
-
-        render.onload = function(event){
-            let src = event.target.result;
-            imageCtrl.inserImg(src);
-            $("#luckysheet-imgUpload").val("");
-        }
+        imageCtrl.insertImg(file);
     });
 
     //菜单栏 插入链接按钮
     $("#luckysheet-insertLink-btn-title").click(function () {
+        // *如果禁止前台编辑，则中止下一步操作
+        if (!checkIsAllowEdit()) {
+            tooltip.info("", locale().pivotTable.errorNotAllowEdit);
+            return
+        }
         if(!checkProtectionNotEnable(Store.currentSheetIndex)){
             return;
         }
@@ -4956,6 +4962,8 @@ export default function luckysheetHandler() {
             }
 
             luckysheetFreezen.scrollAdapt();
+            // cancel 之后 勾勾取消
+            $('#luckysheet-icon-freezen-menu-menuButton').find('.fa.fa-check').remove();
         }
         else {
 
@@ -5620,12 +5628,7 @@ export default function luckysheetHandler() {
                 }
                 //复制的是图片
                 else if(clipboardData.files.length == 1 && clipboardData.files[0].type.indexOf('image') > -1){
-                    let render = new FileReader();
-                    render.readAsDataURL(clipboardData.files[0]);
-                    render.onload = function(event){
-                        let src = event.target.result;
-                        imageCtrl.inserImg(src);
-                    }
+                    imageCtrl.insertImg(clipboardData.files[0]);
 
                     return;
                 }

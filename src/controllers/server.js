@@ -255,7 +255,7 @@ const server = {
 					if(flag) {
 						Store.cooperativeEdit.changeCollaborationSize.forEach(val => {
 							if(val.id == id) {
-								val.v = item.v[0]
+								val.v = item.v[0] || item.range[0]
 								val.i = index
 							}
 						})
@@ -825,6 +825,9 @@ const server = {
 
 	        $("#luckysheet-sheet-container-c").append(replaceHtml(sheetHTML, { "index": value.index, "active": "", "name": value.name, "style": "", "colorset": colorset }));
 	        $("#luckysheet-cell-main").append('<div id="luckysheet-datavisual-selection-set-' + value.index + '" class="luckysheet-datavisual-selection-set"></div>');
+
+					// *添加sheet之后,要判断是否需要显示sheet滚动按钮
+					sheetmanage.locationSheet()
 	    }
 	    else if(type == "shc"){ //复制sheet
 	        let copyindex = value.copyindex, name = value.name;
@@ -879,6 +882,7 @@ const server = {
 
 	        $("#luckysheet-sheets-item" + value.deleIndex).remove();
 			$("#luckysheet-datavisual-selection-set-" + value.deleIndex).remove();
+			sheetmanage.locationSheet()
 
 	    }
 	    else if(type == "shr"){ //sheet位置
@@ -920,6 +924,7 @@ const server = {
 	            file.hide = 0;
 	            $("#luckysheet-sheets-item" + index).show();
 	        }
+				sheetmanage.locationSheet()
 	    }
 	    else if(type == "c"){ //图表操作 TODO
 	        let op = item.op, cid = item.cid;
@@ -970,6 +975,7 @@ const server = {
     multipleIndex: 0,
     multipleRangeShow: function(id, name, r, c, value) {
     	let _this = this;
+			const fullName = name;
 
 	    let row = Store.visibledatarow[r],
 	        row_pre = r - 1 == -1 ? 0 : Store.visibledatarow[r - 1],
@@ -1021,7 +1027,7 @@ const server = {
 								id="luckysheet-multipleRange-show-${id}"
 								class="luckysheet-multipleRange-show"
 								data-color="${luckyColor[_this.multipleIndex]}"
-								title="${name}"
+								title="${fullName}"
 								style="position: absolute;left: ${col_pre - 1}px;width: ${col - col_pre - 1}px;top: ${row_pre - 1}px;height: ${row - row_pre - 1}px;border: 1px solid ${luckyColor[_this.multipleIndex]};z-index: 15;">
 
 								<div class="username" style="height: 19px;line-height:19px;width: max-content;position: absolute;bottom: ${row - row_pre - 1}px;right: 0;background-color: ${luckyColor[_this.multipleIndex]};color:#ffffff;padding:0 10px;">
