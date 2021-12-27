@@ -6870,3 +6870,68 @@ export function checkTheStatusOfTheSelectedCells(type,status){
     }
     return [row_index, col_index];
 }
+
+/**
+ * 设置打印区域的大小
+ * @param {Number} width 宽度，单位为mm
+ * @param {Number} height 高度，单位为mm
+ * @param {string} url 打印背景图片的URL
+ */
+ export function setPrintAreaWithMM(width, height, url) {
+    const pxWidth = mmConversionPx(width);
+    const pxHeight = mmConversionPx(height);
+    console.log('mmConversionPx(width)', pxWidth);
+    console.log('mmConversionPx(height)', pxHeight);
+    console.log('url', url);
+    let sheetFile = Store.luckysheetfile[Store.currentSheetIndex];
+    var img = new Image();
+    img.src = url;
+    img.onload = function() {
+        sheetFile.printArea = {
+            width: pxWidth,
+            height: pxHeight,
+            img: img
+        }
+        jfrefreshgrid();
+    }
+}
+
+/**
+ * 获取当前屏幕和像素的转换率
+ */
+function conversion_getDPI() {
+    var arrDPI = new Array;
+    if (window.screen.deviceXDPI) {
+        arrDPI[0] = window.screen.deviceXDPI;
+        arrDPI[1] = window.screen.deviceYDPI;
+    } else {
+        var tmpNode = document.createElement("DIV");
+        tmpNode.style.cssText = "width:1in;height:1in;position:absolute;left:0px;top:0px;z-index:99;visibility:hidden";
+        document.body.appendChild(tmpNode);
+        arrDPI[0] = parseInt(tmpNode.offsetWidth);
+        arrDPI[1] = parseInt(tmpNode.offsetHeight);
+        tmpNode.parentNode.removeChild(tmpNode);
+    }
+    return arrDPI;
+};
+
+/**
+ * px转换为mm
+ * @param {Number} value 像素数
+ */
+function pxConversionMm(value) {
+    var inch = value/conversion_getDPI()[0];
+    var c_value = inch * 25.4;
+    return c_value;
+};
+
+
+/**
+ * mm转换为px
+ * @param {Number} value 毫米数
+ */
+function mmConversionPx(value) {
+    var inch = value/25.4;
+    var c_value = inch * conversion_getDPI()[0];
+    return c_value;
+}

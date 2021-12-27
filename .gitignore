@@ -7,3 +7,5 @@ docs/.vuepress/dist
 .idea
 .history
 .vs
+
+yarn.lock

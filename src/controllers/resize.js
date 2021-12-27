@@ -251,9 +251,7 @@ export default function luckysheetsizeauto(isRefreshCanvas=true) {
 
     // When adding elements to the luckysheet-icon-morebtn-div element of the toolbar, it will affect the height of the entire workbook area, so the height is obtained here
     gridH = $("#" + Store.container).height();
-
     $("#" + Store.container).find(".luckysheet").height(gridH - 2).width(gridW - 2);
-
     changeSheetContainerSize(gridW, gridH)
 
     if(isRefreshCanvas){

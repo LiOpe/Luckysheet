@@ -565,6 +565,12 @@ function luckysheetDrawMain(scrollWidth, scrollHeight, drawWidth, drawHeight, of
     // luckysheetTableContent.textBaseline = "top";
     luckysheetTableContent.fillStyle = luckysheetdefaultstyle.fillStyle;
 
+    //先绘制打印纸大小
+    let printArea = Store.luckysheetfile[Store.currentSheetIndex].printArea;
+    if (printArea) {
+        luckysheetTableContent.drawImage(printArea.img, Store.rowHeaderWidth, Store.columnHeaderHeight, printArea.width, printArea.height);
+    }
+    console.log('sdfasf')
     //渲染背景图片
     let backgroudImg = Store.luckysheetfile[Store.currentSheetIndex].backgroudImg;
     if (backgroudImg) {
@@ -1173,9 +1179,12 @@ let nullCellRender = function(r, c, start_r, start_c, end_r, end_c,luckysheetTab
     }
     
     let backgroudImg = Store.luckysheetfile[Store.currentSheetIndex].backgroudImg;
-    if(backgroudImg) {
+    let printArea = Store.luckysheetfile[Store.currentSheetIndex].printArea;
+    if(backgroudImg || printArea) {
         luckysheetTableContent.fillStyle = addAlphaToRgb(hexToRgb(luckysheetTableContent.fillStyle), 0.1);
     }
+
+    console.log('sfsfasfsa1');
 
     let cellsize = [
          (start_c + offsetLeft + borderfix[0]), 
@@ -1328,9 +1337,12 @@ let cellRender = function(r, c, start_r, start_c, end_r, end_c, value, luckyshee
     }
 
     let backgroudImg = Store.luckysheetfile[Store.currentSheetIndex].backgroudImg;
-    if(backgroudImg) {
+    let printArea = Store.luckysheetfile[Store.currentSheetIndex].printArea;
+    if(backgroudImg || printArea) {
         luckysheetTableContent.fillStyle = addAlphaToRgb(hexToRgb(luckysheetTableContent.fillStyle), 0.1);
     }
+
+    console.log('sfsfasfsa');
     
     let borderfix = menuButton.borderfix(Store.flowdata, r, c);
     // console.log(value, fillStyle,borderfix);

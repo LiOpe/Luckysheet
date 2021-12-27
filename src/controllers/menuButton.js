@@ -2861,9 +2861,14 @@ const menuButton = {
             if(!checkProtectionAuthorityNormal(Store.currentSheetIndex, "editObjects",false)){
                 return;
             }
+            
             let sourceFile = e.currentTarget.files[0];
             let sheetFile = Store.luckysheetfile[Store.currentSheetIndex];
+
             if(!method.createHookFunction("customBackgroudImgBefore", sourceFile, sheetFile)) {
+                return;
+            }
+            if (!sheetFile) {
                 return;
             }
             let render = new FileReader();
