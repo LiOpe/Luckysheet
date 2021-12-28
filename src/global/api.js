@@ -6907,9 +6907,6 @@ export function checkTheStatusOfTheSelectedCells(type,status){
  export function setPrintAreaWithMM(width, height, url) {
     const pxWidth = mmConversionPx(width);
     const pxHeight = mmConversionPx(height);
-    console.log('mmConversionPx(width)', pxWidth);
-    console.log('mmConversionPx(height)', pxHeight);
-    console.log('url', url);
     let sheetFile = Store.luckysheetfile[Store.currentSheetIndex];
     var img = new Image();
     img.src = url;

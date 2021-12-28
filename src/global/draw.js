@@ -567,8 +567,11 @@ function luckysheetDrawMain(scrollWidth, scrollHeight, drawWidth, drawHeight, of
 
     //先绘制打印纸大小
     let printArea = Store.luckysheetfile[Store.currentSheetIndex].printArea;
+
     if (printArea) {
-        luckysheetTableContent.drawImage(printArea.img, Store.rowHeaderWidth, Store.columnHeaderHeight, printArea.width, printArea.height);
+        const actualWidth = printArea.width - scrollWidth;
+        const actualHeight = printArea.height - scrollHeight;
+        luckysheetTableContent.drawImage(printArea.img, Store.rowHeaderWidth, Store.columnHeaderHeight, actualWidth > 0 ? actualWidth : 0, actualHeight > 0 ? actualHeight : 0);
     }
 
     //渲染背景图片

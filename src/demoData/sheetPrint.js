@@ -5,7 +5,7 @@
  */
  function conversion_getDPI() {
     var arrDPI = new Array;
-    console.log('window.screen.deviceXDPI', window.screen.deviceXDPI);
+    //console.log('window.screen.deviceXDPI', window.screen.deviceXDPI);
     if (window.screen.deviceXDPI) {
         arrDPI[0] = window.screen.deviceXDPI;
         arrDPI[1] = window.screen.deviceYDPI;
@@ -15,7 +15,7 @@
         document.body.appendChild(tmpNode);
         arrDPI[0] = parseInt(tmpNode.offsetWidth);
         arrDPI[1] = parseInt(tmpNode.offsetHeight);
-        console.log('window.screen.deviceXDPI', arrDPI);
+        //window.screen.deviceXDPI', arrDPI);
         tmpNode.parentNode.removeChild(tmpNode);
     }
     return arrDPI;
@@ -61,9 +61,6 @@ if (totalHeight % 20 !== 0) {
     }
 
 }
-
-console.log('column', totalWidth, columnCount, colWidthArray);
-console.log('row', totalHeight, rowCount, rowHeightArray);
 
 window.sheetPrint = {
     "name": "sheetPrint",
