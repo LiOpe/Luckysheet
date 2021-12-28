@@ -567,7 +567,7 @@ function luckysheetDrawMain(scrollWidth, scrollHeight, drawWidth, drawHeight, of
 
     //先绘制打印纸大小
     let printArea = Store.luckysheetfile[Store.currentSheetIndex].printArea;
-    console.log('printArea', scrollWidth, scrollHeight, Store.zoomRatio)
+    
     if (printArea) {
         const actualWidth = printArea.width * Store.zoomRatio - scrollWidth;
         const actualHeight = printArea.height * Store.zoomRatio - scrollHeight;
