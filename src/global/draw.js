@@ -567,10 +567,10 @@ function luckysheetDrawMain(scrollWidth, scrollHeight, drawWidth, drawHeight, of
 
     //先绘制打印纸大小
     let printArea = Store.luckysheetfile[Store.currentSheetIndex].printArea;
-
+    console.log('printArea', scrollWidth, scrollHeight, Store.zoomRatio)
     if (printArea) {
-        const actualWidth = printArea.width - scrollWidth;
-        const actualHeight = printArea.height - scrollHeight;
+        const actualWidth = printArea.width * Store.zoomRatio - scrollWidth;
+        const actualHeight = printArea.height * Store.zoomRatio - scrollHeight;
         luckysheetTableContent.drawImage(printArea.img, Store.rowHeaderWidth, Store.columnHeaderHeight, actualWidth > 0 ? actualWidth : 0, actualHeight > 0 ? actualHeight : 0);
     }
 
