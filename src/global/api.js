@@ -6943,7 +6943,7 @@ function conversion_getDPI() {
  * px转换为mm
  * @param {Number} value 像素数
  */
-function pxConversionMm(value) {
+export function pxConversionMm(value) {
     var inch = value/conversion_getDPI()[0];
     var c_value = inch * 25.4;
     return c_value;
@@ -6954,7 +6954,7 @@ function pxConversionMm(value) {
  * mm转换为px
  * @param {Number} value 毫米数
  */
-function mmConversionPx(value) {
+export function mmConversionPx(value) {
     var inch = value/25.4;
     var c_value = inch * conversion_getDPI()[0];
     return c_value;
