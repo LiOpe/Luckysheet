@@ -653,7 +653,7 @@ const sheetmanage = {
                     let r = item.r;
                     let c = item.c;
                     let v = item.v;
-    
+                    let m = v.m;
                     if(r >= data.length){
                         data = datagridgrowth(data, r - data.length + 1, 0);
                     }
@@ -661,6 +661,12 @@ const sheetmanage = {
                         data = datagridgrowth(data, 0, c - data[0].length + 1);
                     }
                     setcellvalue(r, c, data, v);
+                    if (m) {
+                        data[r][c] = {
+                            ...data[r][c],
+                            m : m
+                        }
+                    }
                 }
             }
         }
