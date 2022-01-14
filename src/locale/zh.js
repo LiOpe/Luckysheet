@@ -9976,8 +9976,8 @@ export default {
     },
     customBackgroudImg: {
         image: "图片",
-        width: "宽度",
-        height: "高度",
+        width: "宽度（mm）",
+        height: "高度（mm）",
     },
     dataVerification: {
         cellRange: '单元格范围',

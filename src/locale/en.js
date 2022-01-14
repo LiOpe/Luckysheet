@@ -9747,8 +9747,8 @@ export default {
     },
     customBackgroudImg: {
         image: "Image",
-        width: "Width",
-        height: "Height",
+        width: "Width(mm)",
+        height: "Height(mm)",
     },
     dataVerification: {
         cellRange: 'Cell range',
