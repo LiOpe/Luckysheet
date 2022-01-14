@@ -1,0 +1,30 @@
+/* 自定义背景图片 */
+#luckysheet-custom-backgroundImg-dialog{
+    user-select: none;
+}
+#luckysheet-custom-backgroundImg-dialog .box{
+    font-size: 12px;
+}
+#luckysheet-custom-backgroundImg-dialog .box-item{
+    height: 30px;
+    line-height: 30px;
+    margin-bottom: 10px;
+}
+#luckysheet-custom-backgroundImg-dialog .box-item label{
+    display: inline-block;
+    width: 90px;
+    text-align: right;
+    margin-right: 10px;
+}
+#luckysheet-custom-backgroundImg-dialog .box-item input{
+    width: 200px;
+    height: 30px;
+    padding: 0 10px;
+    border: 1px solid #d4d4d4;
+    outline-style: none;
+    box-sizing: border-box;
+}
+
+#luckysheet-custom-backgroundImg-dialog .luckysheet-modal-dialog-buttons{
+    text-align: right;
+}

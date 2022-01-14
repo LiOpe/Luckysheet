@@ -6,6 +6,7 @@ import luckysheetDropCell from './dropCell';
 import luckysheetPostil from './postil';
 import imageCtrl from './imageCtrl';
 import hyperlinkCtrl from './hyperlinkCtrl';
+import backgroundImgCtrl from './backgroundImgCtrl';
 import dataVerificationCtrl from './dataVerificationCtrl';
 import menuButton from './menuButton';
 import conditionformat from './conditionformat';
@@ -4918,6 +4919,28 @@ export default function luckysheetHandler() {
     $("#luckysheetInsertLink").click(function () {
         $("#luckysheet-insertLink-btn-title").click();
         $("#luckysheet-rightclick-menu").hide();
+    })
+
+    //菜单栏 背景图片
+    $("#luckysheet-custom-btn-backgroundImg").click(function () {
+        // *如果禁止前台编辑，则中止下一步操作
+        if (!checkIsAllowEdit()) {
+            tooltip.info("", locale().pivotTable.errorNotAllowEdit);
+            return
+        }
+        if(!checkProtectionNotEnable(Store.currentSheetIndex)){
+            return;
+        }
+
+        if (Store.luckysheet_select_save == null || Store.luckysheet_select_save.length == 0) {
+            return;
+        }
+
+        backgroundImgCtrl.createDialog();
+        backgroundImgCtrl.init();
+    })
+    $("#luckysheetInsertLink").click(function () {
+        $("#luckysheet-custom-btn-backgroundImg").click();
     })
 
     //菜单栏 数据验证按钮

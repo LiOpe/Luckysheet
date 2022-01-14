@@ -2926,58 +2926,7 @@ const menuButton = {
             }
             mouseclickposition($menuButton, menuleft, $(this).offset().top + 25, "lefttop");
         });
-        
-        //菜单栏 插入图片按钮
-        $("#luckysheet-custom-btn-backgroundImg").click(function () {
-            if(!checkProtectionAuthorityNormal(Store.currentSheetIndex, "editObjects")){
-                return;
-            }
-            $("#luckysheet-custom-backgroundImg").click();    
-        });
-        $("#luckysheet-custom-backgroundImg").click(function (e) {
-            e.stopPropagation();
-        });
-        $("#luckysheet-custom-backgroundImg").on("change", function(e){
-            if(!checkProtectionAuthorityNormal(Store.currentSheetIndex, "editObjects",false)){
-                return;
-            }
             
-            let sourceFile = e.currentTarget.files[0];
-            let sheetFile = Store.luckysheetfile[Store.currentSheetIndex];
-
-            if(!method.createHookFunction("customBackgroudImgBefore", sourceFile, sheetFile)) {
-                return;
-            }
-            if (!sheetFile) {
-                return;
-            }
-            let render = new FileReader();
-            render.readAsDataURL(sourceFile);
-    
-            render.onload = function(event){
-                let src = event.target.result;
-
-                var img = new Image();
-                img.src = src
-                //img.src = src
-                img.onload = imgfn;
-                function imgfn() {
-                    sheetFile.backgroudImg = {
-                        src : img,
-                        x : Store.rowHeaderWidth,
-                        y : Store.columnHeaderHeight,
-                        width : img.width, 
-                        height : img.height
-                    }
-                    luckysheetrefreshgrid();
-                }
-                method.createHookFunction("customBackgroudImgAfter", sourceFile, sheetFile)
-        
-                $("#luckysheet-custom-backgroundImg").val("");
-                
-            }
-        });
-    
         $("body").on("mouseover mouseleave",".luckysheet-menuButton .luckysheet-cols-submenu", function(e){
             let $t = $(this), attrid = $t.attr("itemvalue"), 
                 $attr = $("#luckysheet-icon-" + attrid + "-menuButton");

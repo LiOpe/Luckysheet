@@ -9116,7 +9116,7 @@ export default {
 
         cellFormat:"设置单元格格式",
         print:"打印",
-        customBackgroud:"背景图片",
+        customBackgroudImg:"背景图片",
     },
     alternatingColors:{
         applyRange: '应用范围',
@@ -9973,6 +9973,11 @@ export default {
         placeholder3: "请输入提示内容",
         tooltipInfo1: "请输入有效的链接",
         tooltipInfo2: "请输入正确的单元格引用",
+    },
+    customBackgroudImg: {
+        image: "图片",
+        width: "宽度",
+        height: "高度",
     },
     dataVerification: {
         cellRange: '单元格范围',

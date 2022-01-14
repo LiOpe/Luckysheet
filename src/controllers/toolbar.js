@@ -833,7 +833,7 @@ export function createToolbarHtml() {
             </div>
         </div>`, // 'print'
         addBackground: `<div class="luckysheet-toolbar-button-split-left luckysheet-toolbar-button luckysheet-inline-block"
-        data-tips="${toolbar.customBackgroud}" id="luckysheet-custom-btn-backgroundImg" role="button" style="user-select: none;">
+        data-tips="${toolbar.customBackgroudImg}" id="luckysheet-custom-btn-backgroundImg" role="button" style="user-select: none;">
             <div class="luckysheet-toolbar-button-outer-box luckysheet-inline-block"
             style="user-select: none;">
                 <div class="luckysheet-toolbar-menu-button-inner-box luckysheet-inline-block"
@@ -843,7 +843,6 @@ export function createToolbarHtml() {
                         <div class="luckysheet-icon luckysheet-inline-block " style="user-select: none;">
                             <div aria-hidden="true" class="luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-rotation-none iconfont luckysheet-iconfont-tupian"
                             style="user-select: none;">
-                                <input id="luckysheet-custom-backgroundImg" type="file" accept="image/*" style="display:none;"></input>
                             </div>
                         </div>
                     </div>

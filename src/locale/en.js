@@ -8906,7 +8906,7 @@ export default {
 
         cellFormat:"Cell format config",
         print:"Print",
-        customBackgroud:"Add Backgroud",
+        customBackgroudImg:"Add backgroud image",
     },
     alternatingColors:{
         applyRange: 'Apply to range',
@@ -9744,6 +9744,11 @@ export default {
         placeholder3: "Please enter the prompt content",
         tooltipInfo1: "Please enter a valid link",
         tooltipInfo2: "Please enter the correct cell reference",
+    },
+    customBackgroudImg: {
+        image: "Image",
+        width: "Width",
+        height: "Height",
     },
     dataVerification: {
         cellRange: 'Cell range',
