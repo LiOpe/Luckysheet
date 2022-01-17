@@ -97,8 +97,8 @@ const backgroundImgCtrl = {
                             src : img,
                             x : Store.rowHeaderWidth,
                             y : Store.columnHeaderHeight,
-                            width : mmConversionPx(width ? width : img.width), 
-                            height : mmConversionPx(height ? height : img.height)
+                            width : width? mmConversionPx(width) : img.width, 
+                            height : height ? mmConversionPx(height) : img.height
                         }
                         _this.ref();
                     }
