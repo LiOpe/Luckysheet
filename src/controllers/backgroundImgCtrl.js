@@ -92,8 +92,6 @@ const backgroundImgCtrl = {
                     //img.src = src
                     img.onload = imgfn;
                     function imgfn() {
-                        console.log('mmConversionPx(width ? width : img.width)', mmConversionPx(width ? width : img.width));
-                        console.log('mmConversionPx(height ? height : img.height', mmConversionPx(height ? height : img.height));
                         sheetFile.backgroudImg = {
                             sourceFileName: sourceFileName,
                             src : img,
