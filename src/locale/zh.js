@@ -9975,6 +9975,7 @@ export default {
         tooltipInfo2: "请输入正确的单元格引用",
     },
     customBackgroudImg: {
+        url: "图片链接",
         image: "图片",
         width: "宽度（mm）",
         height: "高度（mm）",

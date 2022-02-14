@@ -9746,6 +9746,7 @@ export default {
         tooltipInfo2: "Please enter the correct cell reference",
     },
     customBackgroudImg: {
+        image: "Image Link",
         image: "Image",
         width: "Width(mm)",
         height: "Height(mm)",

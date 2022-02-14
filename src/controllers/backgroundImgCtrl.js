@@ -15,24 +15,42 @@ const backgroundImgCtrl = {
         const backgroundImgText = _locale.customBackgroudImg;
         const toolbarText = _locale.toolbar;
         const buttonText = _locale.button;
+        const sheet = Store.luckysheetfile[Store.currentSheetIndex];
+        let content;
+        if (sheet.backgroudImg && sheet.backgroudImg.useUrl) {
+            content = `<div class="box">
+            <div class="box-item">
+                <label for="luckysheet-custom-backgroundImg-dialog-url">${backgroundImgText.url}：</label>
+                <input id="luckysheet-custom-backgroundImg-dialog-url" type="text"></input>
+            </div>
+            <div class="box-item">
+            <label for="luckysheet-custom-backgroundImg-dialog-width">${backgroundImgText.width}：</label>
+                <input type="text" id="luckysheet-custom-backgroundImg-dialog-width"/>
+            </div>
+            <div class="box-item">
+            <label for="luckysheet-custom-backgroundImg-dialog-height">${backgroundImgText.height}：</label>
+                <input type="text" id="luckysheet-custom-backgroundImg-dialog-height"/>
+            </div>
+        </div>`;
+        } else {
+            content = `<div class="box">
+            <div class="box-item">
+                <label for="luckysheet-custom-backgroundImg-dialog-image">${backgroundImgText.image}：</label>
+                <input id="luckysheet-custom-backgroundImg-dialog-image" type="file" accept="image/*" style="border: 0px;"></input>
+            </div>
+            <div class="box-item">
+            <label for="luckysheet-custom-backgroundImg-dialog-width">${backgroundImgText.width}：</label>
+                <input type="text" id="luckysheet-custom-backgroundImg-dialog-width"/>
+            </div>
+            <div class="box-item">
+            <label for="luckysheet-custom-backgroundImg-dialog-height">${backgroundImgText.height}：</label>
+                <input type="text" id="luckysheet-custom-backgroundImg-dialog-height"/>
+            </div>
+        </div>`;
+        }
 
         $("#luckysheet-modal-dialog-mask").show();
         $("#luckysheet-custom-backgroundImg-dialog").remove();
-
-        let content =  `<div class="box">
-                            <div class="box-item">
-                                <label for="luckysheet-custom-backgroundImg-dialog-image">${backgroundImgText.image}：</label>
-                                <input id="luckysheet-custom-backgroundImg-dialog-image" type="file" accept="image/*" style="border: 0px;"></input>
-                            </div>
-                            <div class="box-item">
-                            <label for="luckysheet-custom-backgroundImg-dialog-width">${backgroundImgText.width}：</label>
-                                <input type="text" id="luckysheet-custom-backgroundImg-dialog-width"/>
-                            </div>
-                            <div class="box-item">
-                            <label for="luckysheet-custom-backgroundImg-dialog-height">${backgroundImgText.height}：</label>
-                                <input type="text" id="luckysheet-custom-backgroundImg-dialog-height"/>
-                            </div>
-                        </div>`;
 
         $("body").append(replaceHtml(modelHTML, { 
             "id": "luckysheet-custom-backgroundImg-dialog", 
@@ -71,13 +89,37 @@ const backgroundImgCtrl = {
             const width = $("#luckysheet-custom-backgroundImg-dialog-width").val();
             const height = $("#luckysheet-custom-backgroundImg-dialog-height").val();
             const sourceFileName =  $("#luckysheet-custom-backgroundImg-dialog-image").val();
-            const sourceFile = $("#luckysheet-custom-backgroundImg-dialog-image")[0].files[0];
+            const sourceFile = $("#luckysheet-custom-backgroundImg-dialog-image")[0]?.files[0];
+            const sourceFileUrl = $("#luckysheet-custom-backgroundImg-dialog-url").val();
             const sheetFile = Store.luckysheetfile[Store.currentSheetIndex];
 
-            if (sourceFile) {
-                if (!sheetFile) {
+            if (sourceFileUrl) {
+                if (!sourceFileUrl.startsWith("http")) {
                     return;
                 }
+                if (!method.createHookFunction("customBackgroudImgBefore", sourceFileUrl, sheetFile)) {
+                    return;
+                }
+    
+                var img = new Image();
+                img.src = sourceFileUrl;
+                //img.src = src
+                img.onload = imgfn;
+                function imgfn() {
+                    sheetFile.backgroudImg = {
+                        sourceFileName: sourceFileName,
+                        src : img,
+                        x : Store.rowHeaderWidth,
+                        y : Store.columnHeaderHeight,
+                        width : width? mmConversionPx(width) : img.width, 
+                        height : height ? mmConversionPx(height) : img.height
+                    }
+                    _this.ref();
+                }
+                method.createHookFunction("customBackgroudImgAfter", sourceFileUrl, sheetFile)                    
+            }
+
+            if (sourceFile) {
                 if (!method.createHookFunction("customBackgroudImgBefore", sourceFile, sheetFile)) {
                     return;
                 }
@@ -103,7 +145,7 @@ const backgroundImgCtrl = {
                         _this.ref();
                     }
                     method.createHookFunction("customBackgroudImgAfter", sourceFile, sheetFile)                    
-                }    
+                }        
             }
 
             $("#luckysheet-modal-dialog-mask").hide();

@@ -1,4 +1,7 @@
 window.sheetCell = {
+    "backgroudImg" : {
+        "useUrl" : false,
+    },
     "name": "Cell",
     "config": {
         "merge": {

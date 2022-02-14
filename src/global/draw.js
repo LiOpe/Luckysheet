@@ -576,7 +576,7 @@ function luckysheetDrawMain(scrollWidth, scrollHeight, drawWidth, drawHeight, of
 
     //渲染背景图片
     let backgroudImg = Store.luckysheetfile[Store.currentSheetIndex].backgroudImg;
-    if (backgroudImg) {
+    if (backgroudImg && backgroudImg.src) {
         luckysheetTableContent.drawImage(backgroudImg.src, Store.rowHeaderWidth, Store.columnHeaderHeight, backgroudImg.width, backgroudImg.height);
         luckysheetTableContent.beginPath();
         luckysheetTableContent.moveTo(Store.rowHeaderWidth + backgroudImg.width, Store.columnHeaderHeight);
@@ -1183,7 +1183,7 @@ let nullCellRender = function(r, c, start_r, start_c, end_r, end_c,luckysheetTab
     
     let backgroudImg = Store.luckysheetfile[Store.currentSheetIndex].backgroudImg;
     let printArea = Store.luckysheetfile[Store.currentSheetIndex].printArea;
-    if(backgroudImg || printArea) {
+    if((backgroudImg && backgroudImg.src) || printArea) {
         luckysheetTableContent.fillStyle = addAlphaToRgb(hexToRgb(luckysheetTableContent.fillStyle), 0.1);
     }
 
@@ -1345,7 +1345,7 @@ let cellRender = function(r, c, start_r, start_c, end_r, end_c, value, luckyshee
 
     let backgroudImg = Store.luckysheetfile[Store.currentSheetIndex].backgroudImg;
     let printArea = Store.luckysheetfile[Store.currentSheetIndex].printArea;
-    if(backgroudImg || printArea) {
+    if((backgroudImg && backgroudImg.src)  || printArea) {
         luckysheetTableContent.fillStyle = addAlphaToRgb(hexToRgb(luckysheetTableContent.fillStyle), 0.1);
     }
     
