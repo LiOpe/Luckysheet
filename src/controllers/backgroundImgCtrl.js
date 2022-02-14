@@ -94,9 +94,6 @@ const backgroundImgCtrl = {
             const sheetFile = Store.luckysheetfile[Store.currentSheetIndex];
 
             if (sourceFileUrl) {
-                if (!sourceFileUrl.startsWith("http")) {
-                    return;
-                }
                 if (!method.createHookFunction("customBackgroudImgBefore", sourceFileUrl, sheetFile)) {
                     return;
                 }
