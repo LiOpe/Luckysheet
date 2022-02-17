@@ -1,6 +1,6 @@
 window.sheetCell = {
     "backgroudImg" : {
-        "useUrl" : false,
+        "useUrl" : true,
     },
     "name": "Cell",
     "config": {

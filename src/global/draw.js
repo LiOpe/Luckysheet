@@ -577,11 +577,11 @@ function luckysheetDrawMain(scrollWidth, scrollHeight, drawWidth, drawHeight, of
     //渲染背景图片
     let backgroudImg = Store.luckysheetfile[Store.currentSheetIndex].backgroudImg;
     if (backgroudImg && backgroudImg.src) {
-        luckysheetTableContent.drawImage(backgroudImg.src, Store.rowHeaderWidth, Store.columnHeaderHeight, backgroudImg.width, backgroudImg.height);
+        luckysheetTableContent.drawImage(backgroudImg.src, Store.rowHeaderWidth, Store.columnHeaderHeight, backgroudImg.width * Store.zoomRatio , backgroudImg.height * Store.zoomRatio);
         luckysheetTableContent.beginPath();
-        luckysheetTableContent.moveTo(Store.rowHeaderWidth + backgroudImg.width, Store.columnHeaderHeight);
-        luckysheetTableContent.lineTo(Store.rowHeaderWidth + backgroudImg.width, Store.columnHeaderHeight + backgroudImg.height);
-        luckysheetTableContent.lineTo(Store.rowHeaderWidth, Store.columnHeaderHeight + backgroudImg.height);
+        luckysheetTableContent.moveTo(Store.rowHeaderWidth + backgroudImg.width * Store.zoomRatio , Store.columnHeaderHeight);
+        luckysheetTableContent.lineTo(Store.rowHeaderWidth + backgroudImg.width * Store.zoomRatio , Store.columnHeaderHeight + backgroudImg.height * Store.zoomRatio);
+        luckysheetTableContent.lineTo(Store.rowHeaderWidth, Store.columnHeaderHeight + backgroudImg.height * Store.zoomRatio);
         const oldStyle = luckysheetTableContent.strokeStyle;
         const oldWidth = luckysheetTableContent.lineWidth;
         luckysheetTableContent.strokeStyle = "black";

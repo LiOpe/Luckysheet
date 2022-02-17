@@ -109,7 +109,8 @@ const backgroundImgCtrl = {
                         x : Store.rowHeaderWidth,
                         y : Store.columnHeaderHeight,
                         width : width? mmConversionPx(width) : img.width, 
-                        height : height ? mmConversionPx(height) : img.height
+                        height : height ? mmConversionPx(height) : img.height,
+                        useUrl : sheetFile.backgroudImg.useUrl
                     }
                     _this.ref();
                 }
