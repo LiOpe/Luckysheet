@@ -115,9 +115,7 @@ const backgroundImgCtrl = {
                     _this.ref();
                 }
                 method.createHookFunction("customBackgroudImgAfter", sourceFileUrl, sheetFile)                    
-            }
-
-            if (sourceFile) {
+            } else {
                 if (!method.createHookFunction("customBackgroudImgBefore", sourceFile, sheetFile)) {
                     return;
                 }
