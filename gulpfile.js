@@ -131,7 +131,7 @@ function clean() {
 
 // proxy middleware
 const apiProxy = createProxyMiddleware('/luckysheet/', {
-    target: 'proxy.mock', // set your server address
+    target: 'http://luckysheet.lashuju.com/', // set your server address
     changeOrigin: true, // for vhosted sites
     ws: true, // proxy websockets
 });
