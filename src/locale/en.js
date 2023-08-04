@@ -8961,6 +8961,7 @@ export default {
         detailSave: 'Local cache restored',
         row: '',
         column: '',
+        size: '',
         loading:"Loading...",
 
         copy:"Copy",

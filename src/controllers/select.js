@@ -29,7 +29,6 @@ function seletedHighlistByindex(id, r1, r2, c1, c2) {
 function selectHightlightShow(isRestore = false) {
     $("#luckysheet-cell-selected-boxs").show();
     $("#luckysheet-cell-selected-boxs #luckysheet-cell-selected").siblings(".luckysheet-cell-selected").remove();
-
     if (Store.luckysheet_select_save.length > 0) {
         for (let i = 0; i < Store.luckysheet_select_save.length; i++) {
             let r1 = Store.luckysheet_select_save[i].row[0],
@@ -164,6 +163,7 @@ function selectHightlightShow(isRestore = false) {
                     [r1, r2],
                     [c1, c2]
                 );
+                
                 //左上角选择区域框
                 formula.fucntionboxshow(rf, cf);
                 //focus单元格数据验证
@@ -485,8 +485,17 @@ function selectionCopyShow(range) {
 
 //选区行列数显示
 function luckysheet_count_show(left, top, width, height, rowseleted, columnseleted) {
+    console.log('Store.toJsonOptions.custom_showSize', Store.toJsonOptions.custom_showSize, width, height) 
+    console.log('rowseleted', rowseleted) 
+    console.log('columnseleted', columnseleted) 
+
     let rowl = rowseleted[1] - rowseleted[0] + 1,
         coll = columnseleted[1] - columnseleted[0] + 1;
+
+    const showSize = Store.toJsonOptions.custom_showSize;
+    const showRowCount = rowl >= 4 && Store.toJsonOptions.custom_showCount;
+    const showColCount = coll >= 4 && Store.toJsonOptions.custom_showCount;
+    
     let drawWidth = Store.luckysheetTableContentHW[0],
         drawHeight = Store.luckysheetTableContentHW[1];
     let scrollWidth = $("#luckysheet-cell-main").scrollLeft(),
@@ -495,8 +504,13 @@ function luckysheet_count_show(left, top, width, height, rowseleted, columnselet
     const _locale = locale();
     const locale_info = _locale.info;
 
-    if (rowl >= 4) {
-        let leftv = left - 25;
+    console.log('showSize', Store.toJsonOptions.custom_showSize)
+    console.log('showRowCount', rowl, Store.toJsonOptions.custom_showCount)
+    console.log('showColCount', coll, Store.toJsonOptions.custom_showCount)
+
+
+    if (showSize || showRowCount) {
+        let leftv = left + width + 5;
         if (leftv < 0) {
             leftv = left + 5;
         }
@@ -510,13 +524,27 @@ function luckysheet_count_show(left, top, width, height, rowseleted, columnselet
             topv = scrollHeight + drawHeight / 2;
         }
 
-        $("#luckysheet-row-count-show").css({ "left": leftv, "top": topv, "display": "block", "width": "11px" }).html("<div>" + rowl.toString().split("").join("</div><div>") + "</div><div>" + locale_info.row + "</div>");
+        let rowShowText;
+        if (showSize) {
+            rowShowText = '高:' + height + locale_info.size;
+        } else {
+            rowShowText = rowl + locale_info.row;
+        }
+
+        console.log('$("#luckysheet-row-count-show")', $("#luckysheet-row-count-show").css('display'))
+        $("#luckysheet-row-count-show").hide();
+
+        $("#luckysheet-row-count-show").css({ "left": leftv, "top": topv, "display": "block" }).text(rowShowText);
+
+        console.log('$("#luckysheet-row-count-show")', $("#luckysheet-row-count-show").css('display'))
     }
     else {
+        console.log('$("#luckysheet-row-count-show")1', $("#luckysheet-row-count-show").css('display'))
         $("#luckysheet-row-count-show").hide();
+        console.log('$("#luckysheet-row-count-show")1', $("#luckysheet-row-count-show").css('display'))
     }
 
-    if (coll >= 4) {
+    if (showSize || showColCount) {
         let topv = top - 25;
         if (topv < 0) {
             topv = top + 5;
@@ -531,7 +559,14 @@ function luckysheet_count_show(left, top, width, height, rowseleted, columnselet
             leftv = scrollWidth + drawWidth / 2;
         }
 
-        $("#luckysheet-column-count-show").css({ "left": leftv, "top": topv, "display": "block" }).text(coll + locale_info.column);
+        let colShowText;
+        if (showSize) {
+            colShowText = '宽:' + width + locale_info.size;
+        } else {
+            colShowText = coll + locale_info.column;
+        }
+
+        $("#luckysheet-column-count-show").css({ "left": leftv, "top": topv, "display": "block" }).text(colShowText);
     }
     else {
         $("#luckysheet-column-count-show").hide();

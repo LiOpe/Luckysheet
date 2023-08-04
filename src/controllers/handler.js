@@ -1098,8 +1098,6 @@ export default function luckysheetHandler() {
             $("#luckysheet-alternateformat-range .fa-table").click();
         }
 
-        $("#luckysheet-row-count-show, #luckysheet-column-count-show").hide();
-
         if (!isEditMode()) {
             //chartMix 隐藏当前页的数据选择区域高亮
             hideAllNeedRangeShow();

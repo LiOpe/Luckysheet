@@ -8944,6 +8944,7 @@ export default {
         detailSave: 'Cache local restaurado',
         row: '',
         column: '',
+        size: '',
         loading:"Cargando...",
 
         copy:"Copiar",
