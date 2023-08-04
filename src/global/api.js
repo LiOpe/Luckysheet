@@ -6954,10 +6954,20 @@ export function checkTheStatusOfTheSelectedCells(type,status){
  * @param {Number} value 毫米数
  */
 export function mmConversionPx(value) {
-    var inch = value/25.4;
+    var inch = value / 25.4;
     var c_value = inch * conversion_getDPI()[0];
     return c_value;
 }
+
+/**
+* px转换为mm
+* @param {Number} value 像素数
+*/
+export function pxConversionMm(value) {
+    var inch = value / conversion_getDPI()[0];
+    var c_value = inch * 25.4;
+    return c_value;
+};
 
 export function getHooks(value) {
     return luckysheetConfigsetting;

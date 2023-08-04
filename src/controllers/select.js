@@ -8,7 +8,7 @@ import { getSheetIndex, getRangetxt } from '../methods/get';
 import Store from '../store';
 import method from '../global/method';
 import locale from '../locale/locale';
-import { refreshMenuButtonFocus } from "../global/api";
+import { refreshMenuButtonFocus, pxConversionMm  } from "../global/api";
 
 //公式函数 选区实体框
 function seletedHighlistByindex(id, r1, r2, c1, c2) {
@@ -485,10 +485,6 @@ function selectionCopyShow(range) {
 
 //选区行列数显示
 function luckysheet_count_show(left, top, width, height, rowseleted, columnseleted) {
-    console.log('Store.toJsonOptions.custom_showSize', Store.toJsonOptions.custom_showSize, width, height) 
-    console.log('rowseleted', rowseleted) 
-    console.log('columnseleted', columnseleted) 
-
     let rowl = rowseleted[1] - rowseleted[0] + 1,
         coll = columnseleted[1] - columnseleted[0] + 1;
 
@@ -503,11 +499,6 @@ function luckysheet_count_show(left, top, width, height, rowseleted, columnselet
 
     const _locale = locale();
     const locale_info = _locale.info;
-
-    console.log('showSize', Store.toJsonOptions.custom_showSize)
-    console.log('showRowCount', rowl, Store.toJsonOptions.custom_showCount)
-    console.log('showColCount', coll, Store.toJsonOptions.custom_showCount)
-
 
     if (showSize || showRowCount) {
         let leftv = left + width + 5;
@@ -526,22 +517,16 @@ function luckysheet_count_show(left, top, width, height, rowseleted, columnselet
 
         let rowShowText;
         if (showSize) {
-            rowShowText = '高:' + height + locale_info.size;
+            rowShowText = '高:' + pxConversionMm(height).toFixed(2) + locale_info.size;
         } else {
             rowShowText = rowl + locale_info.row;
         }
 
-        console.log('$("#luckysheet-row-count-show")', $("#luckysheet-row-count-show").css('display'))
         $("#luckysheet-row-count-show").hide();
-
         $("#luckysheet-row-count-show").css({ "left": leftv, "top": topv, "display": "block" }).text(rowShowText);
-
-        console.log('$("#luckysheet-row-count-show")', $("#luckysheet-row-count-show").css('display'))
     }
     else {
-        console.log('$("#luckysheet-row-count-show")1', $("#luckysheet-row-count-show").css('display'))
         $("#luckysheet-row-count-show").hide();
-        console.log('$("#luckysheet-row-count-show")1', $("#luckysheet-row-count-show").css('display'))
     }
 
     if (showSize || showColCount) {
@@ -561,7 +546,7 @@ function luckysheet_count_show(left, top, width, height, rowseleted, columnselet
 
         let colShowText;
         if (showSize) {
-            colShowText = '宽:' + width + locale_info.size;
+            colShowText = '宽:' + pxConversionMm(width).toFixed(2) + locale_info.size;
         } else {
             colShowText = coll + locale_info.column;
         }
